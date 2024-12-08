@@ -1,33 +1,14 @@
 this a school project L
-- delete projectile of out of bounds -- DONE
 
-- create the spawn zone and make move up after projectile is deleted -- DONE
+description:
+Game demo where the player aims and shoot projectiles bursts into an increasing number of entities.
+After every burst, the entities move up and more are spawned
+There is a score counter
+After every 10 points (1 points = 1 entity eliminated), the number of projectiles in a burst increases
+Game over when 1 entity hits the top of the screen
+There is sound for hit, when projectile goes out of the screen, when burst increases
+Textures of entities varies every spawn wave
 
--hp system for entity -- DONE
 
--- COLLISION GOOD-ISH => hitboxes will have to be refined for hp to work
 
---BOUNCING SYSTEM -- DONE
-
---add borders (that bounces on the sides) and death zone on top -- DONE
-
---count the number of entities hit -- shouldnt b too hard wink wink -- DONE
-
--- do the power up, make it cannot shoot when there's still a projectile on the screen -- later 
-
--- redo spawning zone, make it spawn outside then move up -- DONE
-
---add graphics -- delegate this
-
-=> move spawning zone outside of viewing area, (move outofbounds accordingly) -- DONE 
-
---add graphics -- delegate this
-
--- add shotting delay -- DONE (ish)
-
--- redo wall hitbox [ASK PROF] // look at xy value when bugged and manually move it // specific angle 
-
--- implement power ups (for more projectiles)
-
--- limit aiming to 180 degrees downward 
 
