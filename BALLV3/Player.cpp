@@ -92,35 +92,25 @@ void Player::shoot(SDL_Event& event, std::vector<Entity>& projectiles, SDL_Textu
 
 
 
-
-bool Player::outOfBounds(std::vector<Entity>& projectile, int& windowWidth, int& windowHeight, bool* detectOutOfBounds, Audio& audio2) const
+bool Player::outOfBounds(std::vector<Entity>& projectile, int& windowWidth, int& windowHeight, bool* detectOutOfBounds, Audio& audio2)
 {
-	static int outOfBounded = 0; 
 	*detectOutOfBounds = false;
 
 	for (auto it = projectile.begin(); it != projectile.end(); )
 	{
-		// Check if the projectile is out of bounds
 		if (it->getX() < 0 || it->getX() > windowWidth || it->getY() < 0
 			|| it->getY() > windowHeight || it->getY() < 64)
 		{
 			it = projectile.erase(it);
 			*detectOutOfBounds = true;
 			audio2.playDeathSound();
-			outOfBounded++;
-			if (outOfBounded == maxProjectiles)
-			{
-				*detectOutOfBounds = true;
-				outOfBounded = 0;
-				break;
-			}
+			//std::cout << "Projectiles remaining: " << projectile.size() << "\n";
+
 		}
-		else
-		{
+		else {
 			++it;
 		}
 	}
-
 	return *detectOutOfBounds;
 }
 

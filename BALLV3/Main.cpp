@@ -157,7 +157,7 @@ int main(int argc, char* args[]) {
             SDL_Delay(frame_time - frame);
         }
 
-        player.outOfBounds(projectile, windowWidth, windowHeight, &isOutOfBounds, audio);
+        Player::outOfBounds(projectile, windowWidth, windowHeight, &isOutOfBounds, audio);
         
         srand(time(0));
         SDL_Texture* chosenTexture = textures[spawnCounter % 5];
