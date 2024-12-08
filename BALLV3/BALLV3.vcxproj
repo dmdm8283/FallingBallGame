@@ -158,6 +158,7 @@
     <ClInclude Include="RenderWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="background2.png" />
     <Image Include="bullet.png" />
     <Image Include="bullet_resized_32x32.png" />
     <Image Include="Planet1.png.png" />
@@ -176,6 +177,11 @@
     <Image Include="PNG1-PROJECTILE.png" />
     <Image Include="PNG1-PINK.png" />
     <Image Include="PNG1-PURPLE.png" />
+    <Image Include="sprites\planet1.png" />
+    <Image Include="sprites\planet2.png" />
+    <Image Include="sprites\planet3.png" />
+    <Image Include="sprites\planet4.png" />
+    <Image Include="sprites\planet5.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="HomeVideoBold-R90Dv.ttf" />

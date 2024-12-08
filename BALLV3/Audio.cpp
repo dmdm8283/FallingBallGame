@@ -21,11 +21,11 @@ bool Audio::initialize() {
     return true;
 }
 
-bool Audio::loadMp3(const std::string& hitFilePath, const std::string& deathFilePath, const std::string& levelUpFilePath, const std::string& ostFilePath) {
+bool Audio::loadMp3(const std::string& hitFilePath, const std::string& deathFilePath, const std::string& levelUpFilePath, const std::string& bgFilePath) {
     hitSound = Mix_LoadWAV(hitFilePath.c_str());
     deathSound = Mix_LoadWAV(deathFilePath.c_str());
     levelUpSound = Mix_LoadWAV(levelUpFilePath.c_str());
-    ost = Mix_LoadMUS(ostFilePath.c_str());
+    bg = Mix_LoadMUS(bgFilePath.c_str());
 
     if (!hitSound) {
         std::cerr << "Failed to load hit sound: " << Mix_GetError() << std::endl;
@@ -43,13 +43,13 @@ bool Audio::loadMp3(const std::string& hitFilePath, const std::string& deathFile
     return true;
 }
 
-void Audio::playOst()
+void Audio::playBg()
 {
-    if (ost) {
-        Mix_PlayMusic(ost, -1); 
+    if (bg) {
+        Mix_PlayMusic(bg, -1); 
     }
     else {
-        std::cerr << "OST is not loaded." << std::endl;
+        std::cerr << "bg is not loaded." << std::endl;
     }
 }
 

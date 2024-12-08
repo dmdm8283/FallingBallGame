@@ -104,7 +104,6 @@ void Collisions::bounceProjectile(Entity& projectile, const SDL_Rect& entityHitb
     }
 }
 
-//PITA
 void Collisions::applyGravity(std::vector<Entity>& projectiles, float gravityStrength)
 {
     for (auto& projectile : projectiles) {

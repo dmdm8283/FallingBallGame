@@ -118,6 +118,24 @@
     <Image Include="player_resized_32x32.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="sprites\planet1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprites\planet2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprites\planet3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprites\planet4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprites\planet5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="background2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="HomeVideoBold-R90Dv.ttf">

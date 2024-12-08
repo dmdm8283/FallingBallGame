@@ -125,13 +125,6 @@ void Player::updateMaxProj(Audio& audio3) {
 		//std::cout << "Max projectiles: " << maxProjectiles << std::endl;
 	}
 }
-
-void Player::resetPlayer()
-{
-	score = 0;
-	maxProjectiles = 2;
-}
-
 void Player::incrementScore(Audio& audio3) {
 	updateMaxProj(audio3);
 	score += 1;

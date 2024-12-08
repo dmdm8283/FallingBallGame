@@ -61,7 +61,7 @@ void Entity::Spawn(SDL_Event& event, std::vector<Entity>& entities, SDL_Texture*
     static int entityHealth = 1; 
 
     int spawnWidth = windowWidth - 128;
-    int spawnHeight = windowHeight / 6;
+    int spawnHeight = windowHeight / 6 - 64;
     float minimumDistance = 128.0f;
     int maxAttempts = 10;
 
@@ -143,7 +143,7 @@ void Entity::Spawn(SDL_Event& event, std::vector<Entity>& entities, SDL_Texture*
         {
             if (!entity.isProjectile && !entity.isWall)
             {
-                entity.y -= 128.0f;
+                entity.y -= 64.0f;
             }
         }
     }
@@ -246,11 +246,6 @@ int Entity::getHealth()const
 SDL_Texture* Entity::getTexture()
 {
     return texture;
-}
-
-SDL_Rect Entity::getCurrentFrame() const
-{
-    return currentFrame;
 }
 
 
