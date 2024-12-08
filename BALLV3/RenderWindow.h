@@ -16,7 +16,8 @@ public:
 	void clear();
 	void render(Entity& p_entity);
 	void display();
-	SDL_Renderer* getRenderer() const;
+	SDL_Window* getWindow() const { return window; }
+	SDL_Renderer* getRenderer() const { return renderer; }
 
 	void addWalls(std::vector<Entity>& entities) const;
 

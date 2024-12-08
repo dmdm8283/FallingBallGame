@@ -97,6 +97,27 @@
     <Image Include="PNG1-CYAN.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="bullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bullet_resized_32x32.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Planet1.png.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="planet2.png.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="planet3.png.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player_resized_32x32.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="HomeVideoBold-R90Dv.ttf">
@@ -111,6 +132,9 @@
       <Filter>Resource Files</Filter>
     </Media>
     <Media Include="hitSound.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="backgroundOST.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>

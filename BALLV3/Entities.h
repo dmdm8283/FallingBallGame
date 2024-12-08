@@ -16,7 +16,7 @@ public:
 	Entity(float p_x, float p_y, SDL_Texture* p_text,
 		float velX = 0.0f, float velY = 0.0f,
 		bool projectile = false, int hp = 1,
-		bool is_wall = false, bool is_powerUp = false);
+		bool is_wall = false);
 
 
 	static void Spawn(SDL_Event& event,
@@ -44,16 +44,16 @@ public:
 	void setPositionY(float);
 	void setPositionX(float);
 
-	float getX();
-	float getY();
+	float getX() const;
+	float getY() const;
 	bool getisProjectile() const;
-	float getVelocityY();
-	float getVelocityX();
-	int getHealth();
+	bool getIsWall() const;
+	float getVelocityY()const;
+	float getVelocityX()const;
+	int getHealth()const;
 	bool getHasCollided() const;
 	void setHasCollided(bool);
 	SDL_Rect& getCurrentFrame();
-	bool isWall;
 
 
 	void setX(float);
@@ -61,9 +61,9 @@ public:
 	void setBaseHealth();
 
 private:
+	bool isWall;
 	int baseHealth;
 	int health;
-	bool ispowerUp;
 	bool hasCollided = false;
 	float velocityY;
 	float velocityX;

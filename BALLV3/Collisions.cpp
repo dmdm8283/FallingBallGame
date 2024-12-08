@@ -7,7 +7,7 @@ bool Collisions::contact(const SDL_Rect& rectA, const SDL_Rect& rectB)
     return SDL_HasIntersection(&rectA, &rectB);
 }
 
-//PITA
+
 bool Collisions::checkCollisions(std::vector<Entity>& entities, std::vector<Entity>& projectiles, Player& player, Audio& audio, Audio& audio3)
 {
     bool collisionDetected = false;
@@ -21,21 +21,16 @@ bool Collisions::checkCollisions(std::vector<Entity>& entities, std::vector<Enti
             const SDL_Rect entityHitbox = entityIt->getHitbox();
 
             if (!entityIt->getisProjectile() && contact(projectileHitbox, entityHitbox)) {
-                //std::cout << "COLLISION TRES BIEN!" << projectile.getHitbox() << std::endl;
                 projectile.setCollisionDelay(0.0002); 
 
                 float angle = calculateImpactAngle(projectile.getVelocityX(), projectile.getVelocityY());
-                // Print angle and impact location
-                std::cout << "Collision with entity at ("
-                    << projectileHitbox.x << ", " << projectileHitbox.y
-                    << ") with impact angle: " << angle << " degrees\n";
 
                 bounceProjectile(projectile, entityHitbox);
 
                 projectile.setHasCollided(true);
                 audio.playHitSound();
 
-                if (!entityIt->isWall && entityIt->takeDamage()) {
+                if (!entityIt-> getIsWall() && entityIt->takeDamage()) {
                     entityIt = entities.erase(entityIt);
                     player.incrementScore(audio3);
 
@@ -57,15 +52,22 @@ bool Collisions::checkCollisions(std::vector<Entity>& entities, std::vector<Enti
 }
 
 
+
+/*
+*find overlap collision > find dominant axis >
+*compares the overlaps (X and Y)  > identify which axis has the smallest intrusion
+*resolve X or Y to sit flush with collided entity's edge (usually wall)
+*Apply bounce
+*/
+
 void Collisions::bounceProjectile(Entity& projectile, const SDL_Rect& entityHitbox) {
     SDL_Rect projectileHitbox = projectile.getHitbox();
-    float bounceMultiplier = 0.8f; // Reduce energy on bounce
+    float bounceMultiplier = 0.8f; 
 
-    // Determine the overlap in X and Y directions
     int overlapX = 0;
     int overlapY = 0;
 
-    // Calculate overlaps
+    //find overlap
     if (projectileHitbox.x + projectileHitbox.w > entityHitbox.x &&
         projectileHitbox.x < entityHitbox.x + entityHitbox.w) {
         overlapX = std::min(projectileHitbox.x + projectileHitbox.w - entityHitbox.x,
@@ -76,28 +78,26 @@ void Collisions::bounceProjectile(Entity& projectile, const SDL_Rect& entityHitb
         overlapY = std::min(projectileHitbox.y + projectileHitbox.h - entityHitbox.y,
             entityHitbox.y + entityHitbox.h - projectileHitbox.y);
     }
-
-    // Resolve collision based on the smaller overlap (dominant axis)
     if (overlapX < overlapY) {
-        // Horizontal collision
+        // Horizontal 
         if (projectileHitbox.x + projectileHitbox.w / 2 < entityHitbox.x + entityHitbox.w / 2) {
-            // Colliding from the left
+            // left
             projectile.setPositionX(entityHitbox.x - projectileHitbox.w);
         }
         else {
-            // Colliding from the right
+            // right
             projectile.setPositionX(entityHitbox.x + entityHitbox.w);
         }
         projectile.setVelocityX(-projectile.getVelocityX() * bounceMultiplier);
     }
     else {
-        // Vertical collision
+        // Vertical 
         if (projectileHitbox.y + projectileHitbox.h / 2 < entityHitbox.y + entityHitbox.h / 2) {
-            // Colliding from above
+            // above
             projectile.setPositionY(entityHitbox.y - projectileHitbox.h);
         }
         else {
-            // Colliding from below
+            // below
             projectile.setPositionY(entityHitbox.y + entityHitbox.h);
         }
         projectile.setVelocityY(-projectile.getVelocityY() * bounceMultiplier);

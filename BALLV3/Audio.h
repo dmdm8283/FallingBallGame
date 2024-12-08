@@ -11,16 +11,18 @@ public:
     ~Audio();
 
     bool initialize();
-    bool loadMp3(const std::string& hitFilePath, const std::string& deathFilePath, const std::string& levelUpFilePath);
+    bool loadMp3(const std::string& hitFilePath, const std::string& deathFilePath, const std::string& levelUpFilePath, const std::string& ostFilePath);
     void playHitSound();
     void playDeathSound();
     void playLevelUpSound();
+    void playOst();
     void cleanup();
 
 private:
-    Mix_Chunk* hitSound;     // Sound effect for "hit"
-    Mix_Chunk* deathSound;   // Sound effect for "death"
-    Mix_Chunk* levelUpSound; // Sound effect for "level-up"
+    Mix_Chunk* hitSound;  
+    Mix_Chunk* deathSound; 
+    Mix_Chunk* levelUpSound; 
+    Mix_Music* ost;
 };
 
 #endif // AUDIO_H

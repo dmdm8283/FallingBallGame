@@ -112,6 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,6 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,6 +158,13 @@
     <ClInclude Include="RenderWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bullet.png" />
+    <Image Include="bullet_resized_32x32.png" />
+    <Image Include="Planet1.png.png" />
+    <Image Include="planet2.png.png" />
+    <Image Include="planet3.png.png" />
+    <Image Include="player.png" />
+    <Image Include="player_resized_32x32.png" />
     <Image Include="PNG-GREEN.png" />
     <Image Include="PNG-MAGENTA.png" />
     <Image Include="PNG-PURPLE.png" />
@@ -172,6 +181,7 @@
     <Font Include="HomeVideoBold-R90Dv.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="backgroundOST.wav" />
     <Media Include="deathSound.wav" />
     <Media Include="hitSound.wav" />
     <Media Include="levelUpSound.wav" />

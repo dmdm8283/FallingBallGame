@@ -1,8 +1,8 @@
 #include "Entities.h"
 //ENTITIES 
 
-Entity::Entity(float p_x, float p_y, SDL_Texture* p_text, float velX, float velY, bool projectile, int hp, bool is_wall, bool is_powerup)
-    : x(p_x), y(p_y), texture(p_text), velocityX(velX), velocityY(velY), isProjectile(projectile), health(hp), isWall(is_wall), ispowerUp(is_powerup)
+Entity::Entity(float p_x, float p_y, SDL_Texture* p_text, float velX, float velY, bool projectile, int hp, bool is_wall)
+    : x(p_x), y(p_y), texture(p_text), velocityX(velX), velocityY(velY), isProjectile(projectile), health(hp), isWall(is_wall)
 {
     currentFrame.x = 0;
     currentFrame.y = 0;
@@ -14,11 +14,6 @@ Entity::Entity(float p_x, float p_y, SDL_Texture* p_text, float velX, float velY
         currentFrame.w = 50;
         currentFrame.h = 840;
 
-    }
-    else if (ispowerUp)
-    {
-        currentFrame.w = 16;
-        currentFrame.h = 16;
     }
     else {
         currentFrame.w = 64;
@@ -57,13 +52,13 @@ void Entity::render(SDL_Renderer* renderer)
     SDL_RenderCopy(renderer, texture, &currentFrame, &destRect);
 }
 
-//PITA
+
 void Entity::Spawn(SDL_Event& event, std::vector<Entity>& entities, SDL_Texture* entityTexture, int windowWidth, int windowHeight, bool* detectOutOfBound)
 {
     static int entitiesToSpawn = 3;
     static int placeholder = 2;
     static bool initialSpawn = false;
-    static int entityHealth = 1; // Track health value to increment
+    static int entityHealth = 1; 
 
     int spawnWidth = windowWidth - 128;
     int spawnHeight = windowHeight / 6;
@@ -71,7 +66,7 @@ void Entity::Spawn(SDL_Event& event, std::vector<Entity>& entities, SDL_Texture*
     int maxAttempts = 10;
 
     /* Check spawning location spaced out
-       If it doesn't find any, spawn randomly */
+       If it doesn't find any (after 10 tries), spawn randomly */
 
     if (!initialSpawn)
     {
@@ -106,8 +101,7 @@ void Entity::Spawn(SDL_Event& event, std::vector<Entity>& entities, SDL_Texture*
         }
         initialSpawn = true;
     }
-
-    if ((event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_n) || (*detectOutOfBound))
+    if (*detectOutOfBound)
     {
         for (int i = 0; i < entitiesToSpawn; ++i)
         {
@@ -153,14 +147,6 @@ void Entity::Spawn(SDL_Event& event, std::vector<Entity>& entities, SDL_Texture*
             }
         }
     }
-
-
-    //remove powerup system fuck that shit
-    /*if (rand() % 50 == 0) {
-        float powerUpX = static_cast<float>(rand() % (windowWidth - 64)); 
-        float powerUpY = static_cast<float>(rand() % (windowHeight / 2)); 
-        //entities.emplace_back(randomX, randomY, powerUpTexture, 0.0f, 0.0f, false, 1, false, true);
-    }*/
 }
 
 
@@ -223,12 +209,12 @@ void Entity::setVelocityY(float vy) {
 
 
 
-float Entity::getX()
+float Entity::getX()const
 {
     return x;
 }
 
-float Entity::getY()
+float Entity::getY()const
 {
     return y;
 }
@@ -238,15 +224,21 @@ bool Entity::getisProjectile() const
     return isProjectile;
 
 }
-float Entity::getVelocityY()
+
+bool Entity::getIsWall() const
+{
+    return isWall;
+}
+
+float Entity::getVelocityY()const
 {
     return velocityY;
 }
-float Entity::getVelocityX()
+float Entity::getVelocityX()const
 {
     return velocityX;
 }
-int Entity::getHealth()
+int Entity::getHealth()const
 {
     return health;
 }

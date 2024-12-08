@@ -2,7 +2,7 @@
 Player::Player(int width, int height, SDL_Texture* texture, int& windowWidth, int& windowHeight)
 	:texture(texture)
 {
-	rect = { 0, 0, 32, 32 };
+	rect = { 0, 0, 64, 64 };
 	rect.x = (windowWidth / 2) - (rect.w / 2);
 	rect.y = 64;
 }
@@ -26,7 +26,7 @@ void Player::fireProjectile(std::vector<Entity>& projectile, SDL_Texture* projec
 	int mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
 
-	int playerCenterX = rect.x + rect.w / 2;
+	int playerCenterX = rect.x + rect.w / 2 - 15; //centered shooting
 	int playerCenterY = rect.y + rect.h / 2;
 
 	double deltaX = mouseX - playerCenterX;
@@ -45,6 +45,14 @@ void Player::fireProjectile(std::vector<Entity>& projectile, SDL_Texture* projec
 
 }
 
+/*
+press space > shoot > wait 0.09 > shoot again until firedProjectile >= maxProjectile
+keep fireDelay low to hide inconsistency errors
+SDL_Delay() and SDL_Getticks() doesn't work
+delay makes everything shoot at once, i cant fix it (if can fix that then use delay cuz its consistent)
+SDL_Getticks is stupidly inconsistent unless change FPS (don't do that)
+*/
+
 void Player::shoot(SDL_Event& event, std::vector<Entity>& projectiles, SDL_Texture* projectileTexture, int velocity) const
 {
 	static bool isFiring = false;
@@ -52,14 +60,6 @@ void Player::shoot(SDL_Event& event, std::vector<Entity>& projectiles, SDL_Textu
 	static clock_t lastFireTime = 0;
 
 	const double fireDelay = 0.09;
-	/*
-	press space > shoot > wait 0.09 > shoot again until firedProjectile >= maxProjectile
-	keep fireDelay low to hide inconsistency errors
-	SDL_Delay() and SDL_Getticks() doesn't work
-	delay makes everything shoot at once, i cant fix it (if can fix that then use delay cuz its consistent)
-	SDL_Getticks is stupidly inconsistent unless change FPS (don't do that)
-	*/
-	
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE && !isFiring)
 	{
 		isFiring = true;
@@ -93,32 +93,36 @@ void Player::shoot(SDL_Event& event, std::vector<Entity>& projectiles, SDL_Textu
 
 
 
-//PITA
-bool Player::outOfBounds(std::vector<Entity>& projectile, int& windowWidth, int& windowHeight, bool* detectOutOfBounds, Audio& audio2)
+bool Player::outOfBounds(std::vector<Entity>& projectile, int& windowWidth, int& windowHeight, bool* detectOutOfBounds, Audio& audio2) const
 {
+	static int outOfBounded = 0; 
 	*detectOutOfBounds = false;
 
 	for (auto it = projectile.begin(); it != projectile.end(); )
 	{
+		// Check if the projectile is out of bounds
 		if (it->getX() < 0 || it->getX() > windowWidth || it->getY() < 0
 			|| it->getY() > windowHeight || it->getY() < 64)
 		{
 			it = projectile.erase(it);
 			*detectOutOfBounds = true;
 			audio2.playDeathSound();
-			std::cout << "Projectiles remaining: " << projectile.size() << "\n";
-
+			outOfBounded++;
+			if (outOfBounded == maxProjectiles)
+			{
+				*detectOutOfBounds = true;
+				outOfBounded = 0;
+				break;
+			}
 		}
-		else {
+		else
+		{
 			++it;
 		}
 	}
 
-
-
 	return *detectOutOfBounds;
 }
-
 
 
 void Player::setX(int x) { rect.x = x; }
@@ -128,15 +132,19 @@ void Player::updateMaxProj(Audio& audio3) {
 	if (score % 10 == 0 && score != 0) {
 		maxProjectiles++;
 		audio3.playLevelUpSound();
-		std::cout << "Max projectiles: " << maxProjectiles << std::endl;
+		//std::cout << "Max projectiles: " << maxProjectiles << std::endl;
 	}
 }
 
+void Player::resetPlayer()
+{
+	score = 0;
+	maxProjectiles = 2;
+}
 
 void Player::incrementScore(Audio& audio3) {
 	updateMaxProj(audio3);
 	score += 1;
-	//std::cout << "SCORE: " << score << std::endl;
 }
 
 int Player::getScore() const {

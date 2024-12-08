@@ -23,7 +23,7 @@ public:
 
 	void fireProjectile(std::vector<Entity>& projectile, SDL_Texture* projectileTexture, int velocity) const;
 	void shoot(SDL_Event& event, std::vector<Entity>& projectile, SDL_Texture* projectileTexture, int velocity) const;	
-	static bool outOfBounds(std::vector<Entity>& projectile, int& windowWidth, int& windowHeight, bool* detectOutOfBounds, Audio& audio2);
+	bool outOfBounds(std::vector<Entity>& projectile, int& windowWidth, int& windowHeight, bool* detectOutOfBounds, Audio& audio2) const;
 
 	SDL_Rect getRect() const;
 
@@ -41,7 +41,7 @@ public:
 	void updateMaxProj(Audio& audio3);
 	void incrementScore(Audio& audio3);
 	int getScore() const;
-
+	void resetPlayer();
 
 private:
 	int score = 0;

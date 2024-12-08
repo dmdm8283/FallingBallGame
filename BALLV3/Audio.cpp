@@ -21,10 +21,11 @@ bool Audio::initialize() {
     return true;
 }
 
-bool Audio::loadMp3(const std::string& hitFilePath, const std::string& deathFilePath, const std::string& levelUpFilePath) {
+bool Audio::loadMp3(const std::string& hitFilePath, const std::string& deathFilePath, const std::string& levelUpFilePath, const std::string& ostFilePath) {
     hitSound = Mix_LoadWAV(hitFilePath.c_str());
     deathSound = Mix_LoadWAV(deathFilePath.c_str());
     levelUpSound = Mix_LoadWAV(levelUpFilePath.c_str());
+    ost = Mix_LoadMUS(ostFilePath.c_str());
 
     if (!hitSound) {
         std::cerr << "Failed to load hit sound: " << Mix_GetError() << std::endl;
@@ -42,30 +43,40 @@ bool Audio::loadMp3(const std::string& hitFilePath, const std::string& deathFile
     return true;
 }
 
-void Audio::playHitSound() {
-    if (hitSound) {
-        Mix_PlayChannel(-1, hitSound, 0); // Play on any available channel
+void Audio::playOst()
+{
+    if (ost) {
+        Mix_PlayMusic(ost, -1); 
     }
     else {
-        std::cerr << "Hit sound not loaded!" << std::endl;
+        std::cerr << "OST is not loaded." << std::endl;
+    }
+}
+
+void Audio::playHitSound() {
+    if (hitSound) {
+        Mix_PlayChannel(-1, hitSound, 0);
+    }
+    else {
+        std::cerr << "Hit sound no good" << std::endl;
     }
 }
 
 void Audio::playDeathSound() {
     if (deathSound) {
-        Mix_PlayChannel(-1, deathSound, 0); // Play on any available channel
+        Mix_PlayChannel(-1, deathSound, 0);
     }
     else {
-        std::cerr << "Death sound not loaded!" << std::endl;
+        std::cerr << "Death sound no good" << std::endl;
     }
 }
 
 void Audio::playLevelUpSound() {
     if (levelUpSound) {
-        Mix_PlayChannel(-1, levelUpSound, 0); // Play on any available channel
+        Mix_PlayChannel(-1, levelUpSound, 0);
     }
     else {
-        std::cerr << "Level-up sound not loaded!" << std::endl;
+        std::cerr << "Level-up sound no good" << std::endl;
     }
 }
 

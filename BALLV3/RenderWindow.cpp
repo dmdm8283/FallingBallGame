@@ -12,9 +12,9 @@ RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h)
     }
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    wallTexture = loadTexture("PNG-WALL.png");
+    wallTexture = loadTexture("wall.png");
     if (!wallTexture) {
-        std::cout << "PROBLEM CON WALL" << std::endl;
+        std::cout << "PROBLEM with WALL" << std::endl;
     }
 
     leftWall = Entity(0, 0, wallTexture, 0.0f, 0.0f, false, INT_MAX, true);
@@ -48,6 +48,7 @@ void RenderWindow::render(Entity& p_entity)
 
     SDL_RenderCopy(renderer, p_entity.getTexture(), &src, &dst);
 }
+
 SDL_Texture* RenderWindow::loadTexture(const char* p_filePath)
 {
     SDL_Texture* texture = NULL;
@@ -73,9 +74,4 @@ void RenderWindow::cleanUp()
 void RenderWindow::clear()
 {
     SDL_RenderClear(renderer);
-}
-
-SDL_Renderer* RenderWindow::getRenderer() const
-{
-    return renderer;
 }
