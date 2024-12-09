@@ -25,7 +25,7 @@ class Entity;
 * death screen with final score and option to press 'q' to quit the screen
 * return void
 */
-void showDeathScreen(SDL_Renderer* renderer, const std::string& fontID, SDL_Event& event, bool& gameRunning, Player& player);
+void showDeathScreen(SDL_Renderer* renderer, const std::string& fontID, SDL_Event& event, bool& gameRunning, Player& player, Audio& audio);
 
 int main(int argc, char* args[]) {
 
@@ -173,7 +173,6 @@ int main(int argc, char* args[]) {
         //game over 
         for (auto& entity : entities) {
             if (entity.getY() <= -48 && !entity.getisProjectile() && !entity.getIsWall()) {
-                audio.playGameOver();
                 gameRunning = false; // Stop the game loop
                 break;
             }
@@ -198,7 +197,7 @@ int main(int argc, char* args[]) {
             );
             SDL_Renderer* gameOverRenderer = SDL_CreateRenderer(gameOverWindow, -1, SDL_RENDERER_ACCELERATED);
 
-            showDeathScreen(gameOverRenderer, "default", event, gameRunning, player);
+            showDeathScreen(gameOverRenderer, "default", event, gameRunning, player, audio);
 
             SDL_DestroyRenderer(gameOverRenderer);
             SDL_DestroyWindow(gameOverWindow);
@@ -220,7 +219,7 @@ int main(int argc, char* args[]) {
     return 0;
 }
 
-void showDeathScreen(SDL_Renderer* renderer, const std::string& fontID, SDL_Event& event, bool& gameRunning, Player& player) {
+void showDeathScreen(SDL_Renderer* renderer, const std::string& fontID, SDL_Event& event, bool& gameRunning, Player& player, Audio& audio) {
     SDL_Texture* backgroundTexture = IMG_LoadTexture(renderer, "background2.png");
     if (!backgroundTexture) {
         std::cerr << "Failed to load background texture: " << SDL_GetError() << std::endl;
@@ -242,7 +241,8 @@ void showDeathScreen(SDL_Renderer* renderer, const std::string& fontID, SDL_Even
 
     SDL_DestroyTexture(backgroundTexture);
 
-
+    audio.playGameOver();
+    
     while (true) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT ||
