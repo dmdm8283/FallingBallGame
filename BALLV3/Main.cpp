@@ -52,7 +52,7 @@ int main(int argc, char* args[]) {
     }
 
     // Load audio files
-    if (!audio.loadMp3("hitSound.wav", "deathSound.wav", "levelUpSound.wav", "backgroundMs.wav")) {
+    if (!audio.loadMp3("hitSound.wav", "deathSound.wav", "levelUpSound.wav", "backgroundMs.wav", "gameOver.wav")) {
         std::cerr << "Failed to load audio files: " << Mix_GetError() << std::endl;
     }
 
@@ -173,6 +173,7 @@ int main(int argc, char* args[]) {
         //game over 
         for (auto& entity : entities) {
             if (entity.getY() <= -48 && !entity.getisProjectile() && !entity.getIsWall()) {
+                audio.playGameOver();
                 gameRunning = false; // Stop the game loop
                 break;
             }
@@ -240,6 +241,7 @@ void showDeathScreen(SDL_Renderer* renderer, const std::string& fontID, SDL_Even
     SDL_RenderPresent(renderer);
 
     SDL_DestroyTexture(backgroundTexture);
+
 
     while (true) {
         while (SDL_PollEvent(&event)) {

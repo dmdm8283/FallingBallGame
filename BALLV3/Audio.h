@@ -40,15 +40,16 @@ public:
      * @brief Loads and initializes the sound effects for the game.
      *
      * This function loads the sound effects for the "hit", "death", and "level-up" events.
-     * The sound effects are loaded from the specified MP3 files.
+     * The sound effects are loaded from the specified WAV files.
      *
-     * @param hitFilePath The file path to the MP3 file containing the "hit" sound effect.
-     * @param deathFilePath The file path to the MP3 file containing the "death" sound effect.
-     * @param levelUpFilePath The file path to the MP3 file containing the "level-up" sound effect.
-     *
+     * @param hitFilePath The file path to the WAV file containing the "hit" sound effect.
+     * @param deathFilePath The file path to the WAV file containing the "death" sound effect.
+     * @param levelUpFilePath The file path to the WAV file containing the "level-up" sound effect.
+     * @param gOFilePath the file path to WAV file containing game over sound
+     * 
      * @return true if the sound effects are successfully loaded and initialized; false otherwise.
      */
-    bool loadMp3(const std::string& hitFilePath, const std::string& deathFilePath, const std::string& levelUpFilePath, const std::string& bgFilePath);
+    bool loadMp3(const std::string& hitFilePath, const std::string& deathFilePath, const std::string& levelUpFilePath, const std::string& bgFilePath, const std::string& gOFilePath);
     
     /**
      * @brief Plays the hit sound effect.
@@ -95,6 +96,17 @@ public:
     void playBg();
 
     /**
+     * @brief Plays the gameOver sound.
+     *
+     * This function plays the sound effect associated with the "gameOver" event.
+     * The sound effect is loaded from the file specified during the initialization
+     * of the Audio class.
+     *
+     * @return void
+     */    
+    void playGameOver();
+
+    /**
      * @brief Cleans up and frees the SDL_mixer resources used by the Audio class.
      *
      * This function should be called when the game is exiting to free up any allocated memory and
@@ -107,7 +119,8 @@ public:
 private:
     Mix_Chunk* hitSound;  
     Mix_Chunk* deathSound; 
-    Mix_Chunk* levelUpSound; 
+    Mix_Chunk* levelUpSound;
+    Mix_Chunk* gameOver;
     Mix_Music* bg;
 };
 
