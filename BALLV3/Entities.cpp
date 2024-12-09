@@ -65,6 +65,8 @@ void Entity::Spawn(SDL_Event& event, std::vector<Entity>& entities, SDL_Texture*
     float minimumDistance = 128.0f;
     int maxAttempts = 10;
 
+    static bool toggleSpawn = false;
+
     /* Check spawning location spaced out
        If it doesn't find any (after 10 tries), spawn randomly */
 
@@ -101,8 +103,9 @@ void Entity::Spawn(SDL_Event& event, std::vector<Entity>& entities, SDL_Texture*
         }
         initialSpawn = true;
     }
-    if (*detectOutOfBound)
+    if (*detectOutOfBound && toggleSpawn)
     {
+        toggleSpawn = false;
         for (int i = 0; i < entitiesToSpawn; ++i)
         {
             float randomX, randomY;
@@ -143,10 +146,15 @@ void Entity::Spawn(SDL_Event& event, std::vector<Entity>& entities, SDL_Texture*
         {
             if (!entity.isProjectile && !entity.isWall)
             {
-                entity.y -= 64.0f;
+                entity.y -= 128.0f;
             }
         }
     }
+    else if (*detectOutOfBound)
+    {
+        toggleSpawn = true; // Enable spawning for the next call
+    }
+
 }
 
 
