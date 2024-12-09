@@ -1,4 +1,4 @@
-this a school project L
+this a school project - Minh
 
 description:
 Game demo where the player aims and shoot projectiles bursts into an increasing number of entities.
