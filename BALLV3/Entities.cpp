@@ -58,7 +58,7 @@ void Entity::Spawn(SDL_Event& event, std::vector<Entity>& entities, SDL_Texture*
     static int entitiesToSpawn = 3;
     static int placeholder = 2;
     static bool initialSpawn = false;
-    static int entityHealth = 1; 
+    static int entityHealth = 2; 
 
     int spawnWidth = windowWidth - 128;
     int spawnHeight = windowHeight / 6 - 64;
@@ -76,7 +76,7 @@ void Entity::Spawn(SDL_Event& event, std::vector<Entity>& entities, SDL_Texture*
         {
             float randomX, randomY;
             bool positionFound = false;
-            int attempts = 0;
+            int attempts = 0;   
 
             while (!positionFound && attempts < maxAttempts) {
                 randomX = static_cast<float>(rand() % spawnWidth);

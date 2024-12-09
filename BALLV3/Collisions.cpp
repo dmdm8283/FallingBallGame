@@ -33,7 +33,7 @@ bool Collisions::checkCollisions(std::vector<Entity>& entities, std::vector<Enti
                 if (!entityIt-> getIsWall() && entityIt->takeDamage()) {
                     entityIt = entities.erase(entityIt);
                     player.incrementScore(audio3);
-
+                    audio.playGameOver();
 
                 }
                 else {
