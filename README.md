@@ -1,5 +1,3 @@
-this a school project - 
-
 description:
 Game demo where the player aims and shoot projectiles bursts into an increasing number of entities.
 After every burst, the entities move up and more are spawned
@@ -9,6 +7,7 @@ Game over when 1 entity hits the top of the screen
 There is sound for hit, when projectile goes out of the screen, when burst increases
 Textures of entities varies every spawn wave
 
+credit for the SDL libraries used in this demo https://www.libsdl.org/ 
 
 Audio credit:
 Hitsound: https://www.youtube.com/watch?v=WE6vKSYqOuc 
